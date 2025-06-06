@@ -1,0 +1,206 @@
+\documentclass[answers,11pt]{exam}
+
+\usepackage[french]{babel}
+\usepackage{ae,lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+
+\title{Leçon 151 : Sous-espaces stables par un endomorphisme ou une famille d'endomorphismes d'un espace vectoriel de dimension finie. Applications}
+\author{\sc{Mathieu} Alix}
+\date{--}
+
+\begin{document}
+
+\maketitle
+
+\section{Rapport du Jury}
+
+\og Dans cette leçon, il faut présenter des propriétés de l'ensemble des sous-espaces stables par un endomorphisme. Des études détaillées sont les bienvenues, par exemple dans le cas d'une matrice diagonalisable ou dans le cas d'une matrice nilpotente d'indice maximum.\\
+
+L'étude des endomorphismes cycliques et des endomorphismes semi-simples trouvent tout à fait leur place dans cette leçon. Dans le cas des corps $\RR$ ou $\CC$, on pourra, si on le souhaite, caractériser ces derniers par la fermeture de leur orbite. \\
+
+Il ne faut pas oublier d'examiner le cas des sous-espaces stables par des familles d'endomorphismes. Ceci peut déboucher par exemple sur des propriétés des endomorphismes commutant entre eux.\\
+
+La réduction des endomorphismes normaux et l'exemple de résolutions d'équations matricielles peuvent être présentés en applications.\\
+
+La décomposition de Frobenius constitue également une application intéressante de cette leçon. Pour aller plus loin, on peut envisager de développer l'utilisation de sous-espaces stables en théorie des représentations.
+\fg
+
+\section{Questions classiques}
+
+Dans tous ce qui suit on considèrera $E$ un $\KK$-ev de dimension finie, sauf si plus de précisions sont données.
+
+\begin{questions}
+
+
+\question Soit $u \in \mathcal{L}(\RR^3)$ tel que $u^2 \neq 0$ et $u^3=0$ (aka nilpotent d'ordre maximum $3$). Quels sont les sous-espaces stables par $u$?
+
+\begin{solution}
+	Soit $e_3$ un vecteur tel que $u^2(e_3) \neq 0$, on pose alors $e_2=u(e_3)$ et $e_1=u^2(e_3)$. La famille $(e_1,e_2,e_3)$ est une base de $E$ (à vérifier). Dans un cette base, $u$ admet la matrice suivante : \[ M=\begin{pmatrix}
+		0 & 1 & 0 \\
+		0 & 0 & 1 \\
+		0 & 0 & 0
+	\end{pmatrix} \]
+	\begin{itemize}
+		\item Si $F$ est un sous-espace stable de dimension $1$, alors il est nécessairement engendré par un vecteur propre, et comme $0$ est la seule valeur propre de $u$ ($u$ nilpotents, alors les vecteurs propres de $F$ sont dans le noyau de $u$. Comme $\ker(u)$ est de dimension $1$ (la matrice $M$ est de rang $2$), alors $F=\ker(u)$.
+		\item Si $F$ est sous-espace stable de dimension $2$ alors en considérant l'équation de $F$ : $a_1 x_1 +a_2 x_2 + a_3 x_3=0$. Si $x$ est le vecteur de coordonnées $(x_1,x_2,x_3)$, alors $u(x)$ a pour coordonnées $(x_2,x_3,0)$ et doit vérifier $a_1 x_2 + a_2 x_3=0$ (car $u(F) \subseteq F$) et $a_1 x_3 = 0$ (car $u^2(F) \subseteq F)$. Si $a_1 \neq 0$, alors $x_3=0$ et en reportant dans les $2$ équations précédentes, on trouve $x_2=x_1=0$ ce qui est impossible car dans ce cas $F=\{0\}$. On a donc $a_1=0$, de même $a_2=0$ et donc l'équation de $F$ est $x_3=0$, i.e. $F=\mathrm{Im}(u)$.
+	\end{itemize}
+	En conclusion les sev stables par $u$ sont $\{0\}
+	, \ker(u), \mathrm{Im}(u), \RR^3$.
+\end{solution}
+
+\question Soit $u$ un endormorphisme. Montrer que si $\ker(u)$ admet un supplémentaire $S$ stable par $u$, alors $S=\mathrm{Im}(u)$.
+
+\begin{solution}
+	Soit $S$ un supplémentaire de $\ker(u)$ stable par $u$. Comme $\ker(u) \cap S = \{0\}$, alors $u$ réalise un isomorphisme de $S$ dans $S$. Ainsi $S=u(S) \subseteq \mathrm{Im}(u)$. Par ailleurs la formule du rang donne \[ \dim(\mathrm{Im}(u))=\dim(E)-\dim(\ker(u))=\dim(S) \]
+	D'où l'égalité.
+\end{solution}
+
+\question Soit $D$ une droite vectorielle de $\RR^3$. Déterminer les endomorphismes de $\RR^3$ laissant stables tous les plans de $\RR^3$ contenant $D$.
+
+\begin{solution}
+	Considérons $e_1$ un vecteur directeur de $D$, qu'on complète en une base $(e_1,e_2,e_3)$ de $\RR^3$. Soit $u$ un endo comme attendu dans l'énoncé. $u$ laisse donc stable $\mathrm{Vect}(e_1,e_2)$ et $\mathrm{Vect}(e_1,e_3)$ et donc laisse stable $D$ qui est leur intersection. La matrice de cet endo est donc de la forme \[ \begin{pmatrix}
+		\lambda & \alpha & \gamma \\
+		0 & \beta & 0 \\
+		0 & 0 & \delta
+	\end{pmatrix}
+	 \]
+	 Enfin $u$ laisse stable le plan $\mathrm{Vect}(e_1,e_2+e_3)$ et, avec mes notations, $u(e_2+e_3)=(\alpha + \gamma)e_1 + \beta e_2 + \delta e_3$ d'où $\beta=\delta$. On vérifie réciproquement qu'un endomorphisme $u$ admettant dans la base $(e_1,e_2,e_3)$ une matrice de la forme \[ \begin{pmatrix}
+		\lambda & \alpha & \gamma \\
+		0 & \beta & 0 \\
+		0 & 0 & \beta
+	\end{pmatrix}
+	 \]
+	 laisse stable tous les plans contenant $D$.
+\end{solution}
+
+\question 
+\begin{parts}
+\part Soit $u \in \mathcal{L}(E)$, montrer que les assertions suivantes sont équivalentes :
+\begin{enumerate}[label=\roman*)]
+	\item $u$ est une homothétie.
+	\item $u$ laisse stable toutes les droites de $E$.
+	\item $u$ laisse stable tout hyperplan de $E$.
+	\item $u^{\intercal}$ laisse stable toute droite de $E^*$.
+	\item $u^{\intercal}$ est une homothétie.
+\end{enumerate}
+\part On suppose que $E$ est de dimension $n$. que dire d'un $u\in \mathcal{L}(E)$ qui laisse stable tous les sev de dimension $r$ de $E$ pour $r \in \llbracket 1,n-1 \rrbracket$.
+\end{parts}
+
+\begin{solution}
+	\begin{enumerate}[label=\alph*)]
+		\item On effectue l'équivalence des 2 premières, puis un raisonnement circulaire sur les restantes \begin{itemize}
+			\item[$\romannumeral 1) \implies \romannumeral 2)$] Si $u$ est une homothétie, il laisse stable tout sous-espace vectoriel de $E$, donc en particulier toute droite de $E$.
+			\item[$\romannumeral 2) \implies \romannumeral 1)$] Comme $u$ laisse stable toute droite de $E$, alors pour tout $x \in E$, il existe $\lambda_x \in \KK$ tel que  $u(x)=\lambda_x x$. On souhaite montrer que $\lambda_x$ est indépendant de $x$. Soit $y \in E\backslash\{0\}$,
+			\begin{itemize}[label=$\ast$]
+				\item Si $\exists \alpha \in \KK, y=\alpha x $, alors $u(y)=\lambda_y y = u(\alpha x)= \alpha u(x)=\lambda_x \alpha x =\lambda_x y $, alors comme $y\neq 0$ alors $\lambda_x=\lambda_y$.
+				\item Sinon en regardant $u(x+y)=\lambda_{x+y}(x+y)=u(x)+u(y)=\lambda_x x+\lambda_y y$. Alors $(\lambda_{x+y} - \lambda_x)x = (\lambda_y - \lambda_{x+y})y$, et comme $x$ et $y$ sont linéairement indépendant alors $\lambda_{x+y}=\lambda_x=\lambda_y$.
+			\end{itemize}
+			Ainsi $\lambda_x$ est indépendant de $x$, et $u$ est une homothétie.
+			\item[$\romannumeral 1) \implies \romannumeral 3)$] Si $u$ est une homothétie, il laisse stable tout sous-espace vectoriel de $E$, donc en particulier tout hyperplan de $E$.
+			\item[$\romannumeral 3) \implies \romannumeral 4)$] Soit $\varphi$ une forme linéaire non nulle et $H=\ker(\varphi)$ un hyperplan de $E$, et $a \in E$ tel que $\varphi(a) \neq 0$ alors $E=\KK a \oplus H$ (en effet $x\in E$ s'écrit $x=\lambda a + h$ avec $\lambda=\frac{\varphi(x)}{\varphi(a)}$ et $h=x-\lambda a \in H$. Comme $u$ laisse stable $h$
+			\begin{align*}
+				u^{\intercal}(\varphi)(x)&=\varphi(u(x))=\varphi(\lambda u(a)+u(h))=\lambda \varphi(u(a))=\frac{\varphi(x)}{\varphi(a)} \varphi(u(a)) \\
+				&=\mu_{\varphi} \varphi(x) \text{ où } \mu_{\varphi}=\frac{\varphi(u(a))}{\varphi(a)} \in \KK
+			\end{align*}
+			Ainsi $u^{\intercal}(\varphi)=\mu_{\varphi} \varphi$ et donc $u^{\intercal}$ laisse stable toute droite de $E^{*}$.
+			\item[$\romannumeral 4) \implies \romannumeral 5)$] Remplacer $E$ par $E^*$, c'est déjà vu.
+			\item[$\romannumeral 5) \implies \romannumeral 1)$] Montrons que si $u^{\intercal}=\lambda Id_{E^*}$ alors $u=\lambda Id_{E}$. Supposons par l'absurde que ce ne soit pas le cas, alors il existe $x\in E\backslash\{0\}$ tel que $y=u(x)-\lambda x \neq 0$. On complète $y$ en une base de $E$ que l'on note $\mathcal{B}$, alors en considérant la forme linéaire $\varphi$ définie par $\varphi(y)=1$ et $\varphi(e)=0$ pour $e \in \mathcal{B}\backslash\{y\}$. On vérifie que $(u^{\intercal}(\varphi)-\lambda \varphi)(x)=\varphi(u(x))-\lambda \varphi(x)=\varphi(y)=1$, ce qui contredit l'homothétie de $u^{\intercal}$.
+		\end{itemize}
+		\item Montrons que $u$ laisse stable tout hyperplan de $E$, et alors par la question précédente, on aura que $u$ est une homothétie. Si $H$ est un hyperplan de base $(e_i)_{1 \leq i \leq n-1}$, alors le sous-espace de $H$ engendré par $\{e_1,\dots,e_{r-1},e_k\}$ pour $r \leq k \leq n-1$ est laissé stable par $u$, donc $u(e_j) \in H$ pour tout $1 \leq j \leq n-1$, donc $H$ est stable par $u$.
+	\end{enumerate}
+\end{solution}
+
+\question Stabilité sur les orthogonaux, question d'adjoint, et thm spectrale ? comme exemple d'application.
+
+\question ($E$ un $\RR$-ev) Pour tout endormorphisme $u \in \mathcal{L}(E)$, il existe un sous-espace vectoriel $P$ de dimension $1$ ou $2$ stable par $u$
+
+\begin{solution}
+	Si $u$ admet une valeur propre réelle $\lambda$, alors pour tout vecteur propre associé $x\in E\backslash\{0\}$, alors la droite $D=\RR x$ est stable par $u$. 
+	
+	Sinon $n \geq 2$ et le polynôme minimal $\pi_u$ se décompose dans l’anneau factoriel $\RR[X]$ en produit de facteurs irréductibles de degré $2$ (les valeurs propres de $u$ sont
+les racines de $\pi_u$). Ce polynôme $\pi_u$ s’écrit donc $\pi_u(X) =(X^2 +bX+c)Q(X)$ avec $b^2-4c< 0$ et $Q (u) \neq 0$ ($\pi_u$ est le polynôme unitaire de plus petit degré
+annulant $u$).
+
+De l’égalité $0=\pi_u(u)= u^2 +b u+c Id  \circ Q(u)$ avec $Q(u)\neq 0$,on déduit alors
+que l’endomorphisme $u^2 + bu + c Id$ n’est pas injectif, c’est-à-dire que son noyau n’est pas réduit à $\{0\}$ . Pour tout vecteur $x$ non nul dans ce noyau on vérifie alors que $P = \mathrm{Vect}(x, u(x))$ est un sous-espace vectoriel de dimension $2$ stable par $u$. En effet, $P$ est de dimension $2$ puisque $x$ n’est pas vecteur propre de $u$ et avec $u^2 (x)+bu(x)+cx = 0$ on déduit que $u^2(x)$ est dans $P$, ce qui entraîne que $P$ est stable par u.
+
+\end{solution}
+
+
+\end{questions}
+
+\section{Question plus exotique ?}
+
+\begin{questions}
+
+\question L'objectif de cet exercice est de démontrer le résultat suivant : si $u \in \mathcal{L}(E)$ vérifie $\pi_u$ irréductible alors $u$ est un endomorphisme semi-simple (\emph{i.e.}  tout sev $F$ de E stable par $u$ admet un supplémentaire dans $E$ stable par $u$). Considérons dès lors $F$ un sev stable de $E$ par $u$
+ \begin{parts}
+ 	\part Traiter le cas $F=E$
+ 	\part Si $F\neq E$, il existe $x_1 \in E\backslash F$, considérons l'ensemble suivant ${E_{x_1,u} = \{P(u)(x_1), P\in \KK[X]\}}$, vérifier qu'il est stable par $u$ ?
+ 		\begin{enumerate}[label=\roman*)]
+ 			\item Notons $I_{x_1}=\{P \in \KK[X], P(u)(x_1)=0\}$, Montrer que $I_{x_1}$ est un idéal principal non-nul. On notera pour la suite $\pi_{x_1}$ un générateur.
+ 			\item Montrer que $\pi_u=\pi_{x_1}$ et en déduire l'irréductibilité de $\pi_{x_1}$.
+ 			\item Montrer que $E_{x_1,u} \cap F = \{0\} $
+ 			\item Conclure en fonction de si $E_{x_1,u}$ est supplémentaire par rapport à $F$. Sinon en déduire un procédé qui permet de conclure.
+ 		\end{enumerate}
+
+ \end{parts}
+ \underline{Remarque:} Ce résultat est essentielle pour pouvoir montrer le résultat suivant sur les endomorphismes semi-simples (voir Gourdon, Algèbre et probabilités pour une démonstration) : \og $u$ est semi-simple si et seulement si $\pi_u = M_1 \dots M_r$ où les $M_i$ sont unitaires, irréductibles et distincts \fg
+ 
+ \begin{solution}
+ 	    $\triangleright$ Soit $F$ un sev stable par $u$. Montrons l'existence d'un supplémentaire $S$ stable par $u$.\\
+\begin{enumerate}[label=(\alph*)]
+    \item  Si $F=E$, c'est terminé en prenant $S=\{0\}$ qui est bien stable par $u$.
+    
+    \item Sinon, considérons $x_1 \in E\backslash F$ et posons l'ensemble suivant qui est stable par $u$  \[ E_{x_1,u} = \{P(u)(x_1), P \in \KK[X]\} \]
+
+    Montrons que cet ensemble pourrait être un potentiel candidat de supplémentaire en commençant par montrer le caractère direct. Montrons que $E_{x_1,u} \cap F = \{0\}$. Pour se faire, on s'intéresse à l'ensemble \[I_{x_1} = \{P\in \KK[X], P(u)(x_1)=0\}\] 
+    \begin{enumerate}[label=\roman*)]
+    \item Il est laissé au lecteur de vérifier que $I_{x_1}$ est un idéal de $\KK[X]$. Or $\KK[X]$ est principal car $\KK$ est un corps, $I_{x_1}$ est donc principal, celui-ci est non réduit à $\{0\}$ car $\pi_u \in I_{x_1}$. Il est donc engendré par un élément $\pi_{x_1} \in \KK[X]$. 
+    \item Or comme dit précédemment, on a $\pi_u \in I_{x_1} = (\pi_{x_1})$  donc $\pi_{x_1} \mid \pi_u$ et comme $\pi_u$ est irréductible (et que $\pi_{x_1} \neq 1$ car $x_1 \neq 0 $ étant dans $E\backslash F$) alors $\pi_u = \pi_{x_1}$ et donc $\pi_{x_1}$ est irréductible.
+    \item Considérons $y\in E_{x_1,u} \cap F$, alors, il existe $P \in \KK[X], y =P(u)(x_1)$. Maintenant supposons que $y\neq 0$. alors $P\not \in I_{x_1} =(\pi_{x_1})$ donc $\pi_{x_1}$ ne divise pas $P$ et comme $\pi_{x_1}$ est irréductible, alors $\pi_{x_1}$ et $P$ sont premiers entre eux. Comme $\KK[X]$ est principal, par le théorème de Bezout :
+
+    Il existe $U,V \in \KK[X], UP + V\pi_{x_1} = 1$ donc : \[ x_1 = U(u) \circ P(u)(x_1) + V(u) \circ \pi_{x_1}(u)(x_1) = U(u)(y)\]
+
+    Or $y \in F$ et comme $F$ est stable par $u$ alors par l'égalité au dessus, on devrait avoir $x_1 \in F$, ce qui est impossible. d'où le caractère direct.
+    \item Si $F\oplus E_{x_1} = E$, c'est terminé en choisissant $S=E_{x_1}$. Sinon, on choisit $x_2 \in E\backslash (E_{x_1} \oplus F)$ et on recommence. On itère ainsi ce procédé qui se termine en un nombre fini d'itération car $E$ est de dimension fini (et que $\dim(E_{x_i}) \geq 1$). Il existe donc $x_1,\dots x_r$ tel que \[ E = F \oplus E_{x_1} \oplus \cdots \oplus E_{x_r} \]
+
+    et comme pour tout $i \in \{1, \cdots, r\}, E_{x_i}$ est stable par $u$ alors $S=E_{x_1} \oplus \cdots \oplus E_{x_r}$ est stable par $u$ et $F\oplus S=E$.
+    \end{enumerate} 
+   \end{enumerate}
+ \end{solution}
+ 
+ 
+\question (Décomposition de Fitting) : On considère $u$ un endomorphisme sur une espace vectoriel $E$ de dimension finie $d$.
+	\begin{parts}
+		\part Les suites $(\ker(u^k))_{k\in \mathbb{N}}$ et $(\mathrm{Im}(u^k))_{k\in\mathbb{N}}$ sont respectivement croissantes et décroissantes.
+		\part Montrer que ces suites sont stationnaire à partir d'un même rang $n_0$.
+		\part Avec les notations précédentes, montrer que $E=\ker(u^{n_0}) \oplus \mathrm{Im}(u^{n_0})$.
+		\part Montrer que $u$ laisse stable $\ker(u^{n_0})$ et $\mathrm{Im}(u^{n_0})$.
+		\part Montrer que $u$ induit un endomorphisme nilpotent sur $\ker(u^{n_0})$.
+		\part Montrer que $u$ induit un automorphisme sur $\mathrm{Im}(u^{n_0})$.
+	\end{parts}
+\end{questions}
+
+\begin{solution}
+	Voir tout libre d'algèbre linéaire, [MAN] ou [CAL - Carnet de voyage en algébrie] ou si vous le souhaitez tout bien détaillé \href{https://agreg-maths.fr/uploads/versions/5366/Dénombrement%20des%20endomorphismes%20nilpotents%20sur%20un%20corps%20fini.pdf}{ici}
+\end{solution}
+
+
+
+
+\end{document}
+
