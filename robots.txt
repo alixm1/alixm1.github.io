@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alixm1.github.io/sitemap-0.xml
+Sitemap: https://alixm1.github.io/sitemap.xml
